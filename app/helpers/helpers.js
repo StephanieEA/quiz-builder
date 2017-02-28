@@ -5,8 +5,8 @@ export const getAllQuizzes = (saveState) => {
     .then(response => {
       return response.json()
     .then(response => {
-      saveState(response),
-      console.log(response)
+      saveState(response)
+       console.log(response)
       })
     })
   }
@@ -15,12 +15,8 @@ export const getAQuiz = (id) => {
   const aQuiz = (`http://localhost:3001/quizzes/${id}`)
   fetch(aQuiz, {
     method: 'GET'})
-    .then(response => {
-      return response.json()
-    .then(response => {
-      console.log(response)
-    })
-  })
+    .then(response => response.json())
+    .then(response => console.log(response))
 }
 
 export const addAQuestion = (id, question) => {
@@ -30,31 +26,82 @@ export const addAQuestion = (id, question) => {
     headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-  },
+    },
     body: JSON.stringify(question)
   })
-    .then(response => {
-      return response.json()
-    .then(response => {
-      console.log(response)
-    })
-  })
+    .then(response => response.json())
+    .then(response => console.log(response))
 }
 
-// export const updateAQuestion = (id, questionId) => {
-//   const updatedQuestion = `http://localhost:3001/quizzes/${id}/questions/${questionId}`
-//   // save a filter that finds the question with the question that has that id
-//   fetch(updatedQuestion, {
-//     method: 'PUT',
-//     headers: {
-//     'Content-Type': 'application/json',
-//     'Accept': 'application/json',
-//   },
-//     body: JSON.stringify()
-//   })
-// }
+export const deleteAQuestion = (quizId, questionId) => {
+  const deleteQuestion = `http://localhost:3001/quizzes/${quizId}/questions/${questionId}`
+  fetch(deleteQuestion, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      },
+      quizId: quizId,
+      questionId: questionId
+    }
+  )
+    .then(response => response.json())
+    .then(response => console.log(response))
+}
+
+export const returnAnsweredQuestion = (quizId, question, answer) => {
+  const answerQuest = `http://localhost:3001/quizzes/${quizId}/questions/${question.id}/answers`
+  fetch(answerQuest, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json',
+             'Accept': 'application/json'
+    },
+    body: JSON.stringify(answer)
+  })
+    .then(response => response.json())
+    .then(response => console.log(response))
+}
+
+export const postFinalScore = (score) => {
+  fetch('http://localhost:3001/scores', {
+   method: 'POST',
+   headers: {
+     'Content-Type': 'application/json'
+   },
+   body: JSON.stringify({ score: score })
+ })
+   .then(response => response.json())
+   .then(response => console.log(response))
+}
+
+export const sampleFinalScore = {
+  "score": 5
+}
+
+export const sampleAnswer = {
+  'title': 'On average, how many npm packages do you install per app?',
+  'score': 5
+}
 
 export const sampleQuestion = {
-  'title': 'Question Title',
-  'answers': [{title: 'option 1', 'score': 0}, {title: 'option 2', 'score': 1}]
+  id: 1478253351169,
+  title: "On average, how many npm packages do you install per app?",
+  answers: [
+    {
+      title: "None. Everything I build is lovingly hand-made from scratch",
+      score: 1
+    },
+    {
+    title: "It depends on the size and scope of the application.",
+    score: 0
+    },
+    {
+    title: "At least a trillion",
+    score: 2
+    },
+    {
+    title: "npm WARN UNMET PEER DEPENDENCY",
+    score: 3
+    }
+  ]
 }

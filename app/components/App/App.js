@@ -9,8 +9,8 @@ export default class App extends Component{
     super(props)
     this.defaultState = {
       quizzes: null,
-      quiz: null,
     }
+
     this.state = this.defaultState
     this.saveQuizzesToState = this.saveQuizzesToState.bind(this)
   }
@@ -19,16 +19,25 @@ export default class App extends Component{
     helpers.getAllQuizzes(this.saveQuizzesToState)
     // helpers.getAQuiz(1)
     // helpers.addAQuestion(1, helpers.sampleQuestion)
+    // helpers.returnAnsweredQuestion(1, helpers.sampleQuestion, helpers.sampleAnswer)
+    // helpers.postFinalScore(helpers.sampleFinalScore)
+    // helpers.deleteAQuestion(1, 1478253351170)
+
   }
 
   saveQuizzesToState (response) {
     this.setState({quizzes: response.quizzes})
+    this.setState({quiz: response.quizzes.map(quiz =>
+    Object.assign({}, quiz))})
+    this.setState({questions: this.state.quiz.map(quiz => quiz.questions)})
   }
 
   render() {
     let quizzes = this.state.quizzes
 
-    quizzes = quizzes !== null ? quizzes.map(quiz => <Quiz quiz={quiz} key={quiz.id}/>) : ''
+    quizzes = quizzes !== null ?
+      quizzes.map(quiz => <Quiz quiz={quiz} key={quiz.id}/>)
+      : ''
 
     return (
       <section>
