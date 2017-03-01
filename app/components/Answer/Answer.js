@@ -8,18 +8,16 @@ export default class Answer extends React.Component{
   }
 
   render() {
-    const answer = this.props.answer
-    const name = this.props.name
-    const chosen = this.props.chosen
-    const title = answer.title
+    const {answer, name, chosen} = this.props
 
     return (
       <p>
         <Input type='radio'
-          name={this.props.name}
-          value={answer.title}
-          checked={chosen[name] === answer.title} onChange={this.props.handleInput}/>
-        {answer.title}{parseInt(answer.score)}
+          name={name}
+          value={answer.score}
+          checked={chosen[name] == answer.score}
+          onChange={this.props.handleInput}/>
+        {answer.title}
       </p>
     )
   }

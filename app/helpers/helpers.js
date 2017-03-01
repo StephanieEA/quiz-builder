@@ -41,8 +41,6 @@ export const deleteAQuestion = (quizId, questionId) => {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       },
-      quizId: quizId,
-      questionId: questionId
     }
   )
     .then(response => response.json())
@@ -62,7 +60,7 @@ export const returnAnsweredQuestion = (quizId, question, answer) => {
     .then(response => console.log(response))
 }
 
-export const postFinalScore = (score) => {
+export const postFinalScore = (score, saveState) => {
   fetch('http://localhost:3001/scores', {
    method: 'POST',
    headers: {
@@ -71,12 +69,10 @@ export const postFinalScore = (score) => {
    body: JSON.stringify({ score: score })
  })
    .then(response => response.json())
-   .then(response => console.log(response))
+   .then(response => saveState(response))
 }
 
-export const sampleFinalScore = {
-  "score": 5
-}
+export const sampleFinalScore = 1
 
 export const sampleAnswer = {
   'title': 'On average, how many npm packages do you install per app?',

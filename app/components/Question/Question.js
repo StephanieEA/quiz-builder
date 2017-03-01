@@ -9,14 +9,14 @@ export default class Question extends React.Component{
   }
 
   render() {
-    let question = this.props.question
+    const {question, chosen, handleInput} = this.props
     let answers = question.answers
 
     answers = answers.map(answer =>
       <Answer
-        answer={answer} 
+        answer={answer}
         key={answer.score}
-        chosen={this.props.chosen} handleInput={this.props.handleInput} name={question.title}/>)
+        chosen={this.props.chosen} handleInput={handleInput} name={question.title}/>)
 
 
     return (

@@ -17,19 +17,10 @@ export default class App extends Component{
 
   componentWillMount(){
     helpers.getAllQuizzes(this.saveQuizzesToState)
-    // helpers.getAQuiz(1)
-    // helpers.addAQuestion(1, helpers.sampleQuestion)
-    // helpers.returnAnsweredQuestion(1, helpers.sampleQuestion, helpers.sampleAnswer)
-    // helpers.postFinalScore(helpers.sampleFinalScore)
-    // helpers.deleteAQuestion(1, 1478253351170)
-
   }
 
   saveQuizzesToState (response) {
     this.setState({quizzes: response.quizzes})
-    this.setState({quiz: response.quizzes.map(quiz =>
-    Object.assign({}, quiz))})
-    this.setState({questions: this.state.quiz.map(quiz => quiz.questions)})
   }
 
   render() {
